@@ -28,6 +28,7 @@ collections:
         fields:
           - label: App
             name: app
+            widget: object
             fields:
             - {label: App ID, name: id, widget: string}
             - {label: Version, name: version, widget: string}
