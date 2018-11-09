@@ -1,18 +1,48 @@
 backend:
-  name: bitbucket
-  repo: xcommedia/damien
+  name: github
+  repo: shadow81627/static-cms
 media_folder: "static/images/uploads" # Media files will be stored in the repo under static/images/uploads
 public_folder: "/images/uploads" # The src attribute for uploaded media will begin with /images/uploads
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog" # Used in the UI
-    folder: "_posts/blog" # The path to the folder where the documents are stored
+  - name: "page" # Used in routes, e.g., /admin/collections/page
+    label: "Pages" # Used in the UI
+    folder: "content/page" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    format: 'json'
     fields: # The fields for each document, usually in front matter
-      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "thumbnail", widget: "image"}
-      - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: Title, name: title, widget: string}
+      - label: Description
+        name: description
+        widget: object
+        fields:
+          - {label: heading, name: heading, widget: string}
+          - {label: subheading, name: subheading, widget: string}
+          - {label: paragraph, name: paragraph, widget: markdown}
+  - name: "social" # Used in routes, e.g., /admin/collections/blog
+    label: "Social" # Used in the UI
+    files:
+      - label: Facebook
+        name: facebook
+        file: "content/social/facebook.json"
+        fields:
+          - label: App
+            name: app
+            fields:
+            - {label: App ID, name: id, widget: string}
+            - {label: Version, name: version, widget: string}
+      - label: Twitter
+        name: twitter
+        file: "content/social/twitter.json"
+        fields:
+          - {label: Text, name: text, widget: string}
+      - label: OG
+        name: og
+        file: "content/social/og.json"
+        fields:
+          - {label: URL, name: url, widget: string}
+          - {label: Title, name: title, widget: string}
+          - {label: Description, name: description, widget: string}
+          - {label: Image, name: image, widget: image}
+
+      
